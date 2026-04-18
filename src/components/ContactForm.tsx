@@ -4,15 +4,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ContactSchema, type ContactFormData } from "@/lib/validators";
-import { Send, Loader2, CheckCircle } from "lucide-react";
 
 const services = [
+  "Vacation Rental Turnover",
   "Residential Cleaning",
   "Commercial Cleaning",
   "Deep Cleaning",
-  "Move-In / Move-Out Cleaning",
-  "Post-Construction Cleaning",
-  "Vacation Rental Turnover",
+  "Move-In / Move-Out",
+  "Post-Construction",
   "Other",
 ];
 
@@ -36,158 +35,169 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("Failed to send message");
+      if (!res.ok) throw new Error("Failed");
       setSubmitted(true);
     } catch {
-      setError("Something went wrong. Please try again or call us directly.");
+      setError("Something went wrong. Please call us directly.");
     }
-  }
-
-  if (submitted) {
-    return (
-      <div className="flex flex-col items-center gap-4 rounded-2xl bg-white p-12 text-center shadow-sm ring-1 ring-brand-primary/5">
-        <CheckCircle size={48} className="text-green-500" />
-        <h3 className="font-serif text-2xl font-bold text-brand-primary">
-          Thank You!
-        </h3>
-        <p className="text-brand-text">
-          We&apos;ve received your message and will get back to you within 24
-          hours.
-        </p>
-      </div>
-    );
   }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-brand-primary/5 lg:p-10"
+      style={{
+        background: "var(--paper)",
+        border: "1px solid var(--line)",
+        padding: "44px 40px",
+      }}
     >
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label
-            htmlFor="name"
-            className="mb-1.5 block text-sm font-medium text-brand-primary"
-          >
-            Full Name *
-          </label>
+      <div className="form-row">
+        <Field label="Full Name *" error={errors.name?.message}>
           <input
-            id="name"
             type="text"
             {...register("name")}
-            className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none"
-            placeholder="John Smith"
+            placeholder="Jane Kowalski"
+            disabled={submitted}
           />
-          {errors.name && (
-            <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="email"
-            className="mb-1.5 block text-sm font-medium text-brand-primary"
-          >
-            Email *
-          </label>
+        </Field>
+        <Field label="Phone" error={errors.phone?.message}>
           <input
-            id="email"
-            type="email"
-            {...register("email")}
-            className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none"
-            placeholder="john@example.com"
-          />
-          {errors.email && (
-            <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="phone"
-            className="mb-1.5 block text-sm font-medium text-brand-primary"
-          >
-            Phone
-          </label>
-          <input
-            id="phone"
             type="tel"
             {...register("phone")}
-            className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none"
             placeholder="(570) 555-0123"
+            disabled={submitted}
           />
-        </div>
+        </Field>
+      </div>
 
-        <div>
-          <label
-            htmlFor="service"
-            className="mb-1.5 block text-sm font-medium text-brand-primary"
-          >
-            Service Needed *
-          </label>
-          <select
-            id="service"
-            {...register("service")}
-            className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none"
-            defaultValue=""
-          >
+      <div className="form-row">
+        <Field label="Email *" error={errors.email?.message}>
+          <input
+            type="email"
+            {...register("email")}
+            placeholder="you@example.com"
+            disabled={submitted}
+          />
+        </Field>
+        <Field label="Service Needed *" error={errors.service?.message}>
+          <select {...register("service")} defaultValue="" disabled={submitted}>
             <option value="" disabled>
               Select a service
             </option>
             {services.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
+              <option key={s}>{s}</option>
             ))}
           </select>
-          {errors.service && (
-            <p className="mt-1 text-xs text-red-500">
-              {errors.service.message}
-            </p>
-          )}
-        </div>
+        </Field>
       </div>
 
-      <div className="mt-5">
-        <label
-          htmlFor="message"
-          className="mb-1.5 block text-sm font-medium text-brand-primary"
-        >
-          Project Details *
-        </label>
-        <textarea
-          id="message"
-          rows={4}
-          {...register("message")}
-          className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition-colors focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none"
-          placeholder="Tell us about your property and cleaning needs..."
-        />
-        {errors.message && (
-          <p className="mt-1 text-xs text-red-500">{errors.message.message}</p>
-        )}
+      <div className="form-row form-row--single">
+        <Field label="Project Details *" error={errors.message?.message}>
+          <textarea
+            {...register("message")}
+            placeholder="Tell us about your property — square footage, frequency, special requests…"
+            disabled={submitted}
+          />
+        </Field>
       </div>
 
-      {error && (
-        <p className="mt-4 text-sm text-red-500">{error}</p>
-      )}
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-accent px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-colors hover:bg-brand-accent-light disabled:opacity-50 sm:w-auto"
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          marginTop: 12,
+        }}
       >
-        {isSubmitting ? (
-          <>
-            <Loader2 size={16} className="animate-spin" />
-            Sending...
-          </>
-        ) : (
-          <>
-            <Send size={16} />
-            Send Message
-          </>
-        )}
-      </button>
+        <span style={{ fontSize: 12, color: "var(--slate-2)" }}>
+          {submitted
+            ? "Thanks — we'll be in touch within 24 hours."
+            : error || "We respond within 24 hours."}
+        </span>
+        <button
+          type="submit"
+          className="btn-ink"
+          disabled={isSubmitting || submitted}
+          style={
+            submitted
+              ? { background: "var(--gold)", color: "var(--ink)" }
+              : undefined
+          }
+        >
+          {submitted
+            ? "✓ Request received"
+            : isSubmitting
+              ? "Sending..."
+              : "Send Request →"}
+        </button>
+      </div>
+
+      <style>{`
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+        .form-row.form-row--single { grid-template-columns: 1fr; }
+        .field label {
+          display: block;
+          font-size: 11px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          font-weight: 500;
+          color: var(--slate-2);
+          margin-bottom: 8px;
+        }
+        .field input, .field select, .field textarea {
+          width: 100%;
+          padding: 14px 16px;
+          background: var(--cream);
+          border: 1px solid var(--line);
+          border-radius: 2px;
+          font-family: var(--font-ui), sans-serif;
+          font-size: 15px;
+          color: var(--ink);
+          transition: border-color 0.2s, background 0.2s;
+        }
+        .field input:focus, .field select:focus, .field textarea:focus {
+          outline: none;
+          border-color: var(--gold);
+          background: #fff;
+        }
+        .field textarea {
+          min-height: 140px;
+          resize: vertical;
+        }
+        .field .err {
+          margin-top: 6px;
+          font-size: 11px;
+          color: #b94545;
+          letter-spacing: 0.04em;
+        }
+        @media (max-width: 720px) {
+          .form-row { grid-template-columns: 1fr; }
+        }
+      `}</style>
     </form>
+  );
+}
+
+function Field({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="field">
+      <label>{label}</label>
+      {children}
+      {error && <div className="err">{error}</div>}
+    </div>
   );
 }

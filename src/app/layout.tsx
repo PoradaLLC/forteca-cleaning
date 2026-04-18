@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 
-const serif = Playfair_Display({
+const display = Playfair_Display({
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
-const sans = DM_Sans({
+const ui = Manrope({
   subsets: ["latin"],
-  variable: "--font-body",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-ui",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Forteca Cleaning | Professional Property Cleaning Services",
+  title: "Forteca Cleaning — Professional Property Cleaning in the Poconos",
   description:
-    "Professional property cleaning services. Residential and commercial cleaning you can trust. Get a free quote today.",
+    "Premium turnover, deep, and recurring cleaning for vacation rentals, homes, and businesses across Pennsylvania's Pocono region — backed by the Forteca Estate standard.",
 };
 
 export default function RootLayout({
@@ -26,10 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} h-full`}>
-      <body className="flex min-h-full flex-col font-sans antialiased">
-        {children}
-      </body>
+    <html lang="en" className={`${display.variable} ${ui.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

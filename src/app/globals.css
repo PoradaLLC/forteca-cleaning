@@ -1,53 +1,232 @@
 @import "tailwindcss";
 
 :root {
-  --brand-primary:        #1a1a1a;
-  --brand-primary-light:  #2d2d2d;
-  --brand-accent:         #d4a148;
-  --brand-accent-light:   #e0b460;
-  --brand-bg:             #ffffff;
-  --brand-bg-alt:         #f8f5ef;
-  --brand-text:           #6b7280;
-  --background:           var(--brand-bg);
-  --foreground:           var(--brand-primary);
+  --ink: #0E1622;
+  --ink-2: #172230;
+  --ink-3: #232F3E;
+  --cream: #F3ECDF;
+  --paper: #FAF6EE;
+  --paper-2: #EFE7D6;
+  --gold: #C9A35B;
+  --gold-deep: #A9854A;
+  --gold-soft: #E4CF9E;
+  --slate: #4A5463;
+  --slate-2: #6B7482;
+  --line: rgba(14, 22, 34, 0.12);
+  --line-on-dark: rgba(243, 236, 223, 0.14);
+
+  --background: var(--cream);
+  --foreground: var(--ink);
 }
 
 @theme inline {
-  --color-background:          var(--background);
-  --color-foreground:          var(--foreground);
-  --color-brand-primary:       var(--brand-primary);
-  --color-brand-primary-light: var(--brand-primary-light);
-  --color-brand-accent:        var(--brand-accent);
-  --color-brand-accent-light:  var(--brand-accent-light);
-  --color-brand-bg:            var(--brand-bg);
-  --color-brand-bg-alt:        var(--brand-bg-alt);
-  --color-brand-text:          var(--brand-text);
-  --font-sans:  var(--font-body), system-ui, sans-serif;
-  --font-serif: var(--font-display), Georgia, serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: var(--gold-soft);
+  --color-slate: var(--slate);
+  --color-slate-2: var(--slate-2);
+
+  --font-sans: var(--font-ui), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-display), "Times New Roman", serif;
 }
 
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+* {
+  box-sizing: border-box;
 }
 
-.animate-fade-up  { animation: fade-up  0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-fade-in  { animation: fade-in  0.6s  ease both; }
-
-.delay-100 { animation-delay: 0.10s; }
-.delay-200 { animation-delay: 0.20s; }
-.delay-300 { animation-delay: 0.30s; }
-.delay-400 { animation-delay: 0.40s; }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-ui), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.eyebrow {
+  font-family: var(--font-ui), sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.eyebrow.on-dark {
+  color: var(--gold);
+}
+
+.h-display {
+  font-family: var(--font-display), serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  margin: 0;
+}
+.h1 {
+  font-size: clamp(54px, 7vw, 104px);
+}
+.h2 {
+  font-size: clamp(38px, 4.6vw, 64px);
+}
+.h3 {
+  font-size: clamp(24px, 2vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  font-family: var(--font-ui), sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--slate);
+  max-width: 60ch;
+}
+
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.section {
+  padding: 120px 0;
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 80px 0;
+  }
+  .wrap {
+    padding: 0 20px;
+  }
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--font-ui), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-gold:hover {
+  background: var(--gold-soft);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  color: var(--cream);
+  font-family: var(--font-ui), sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 2px;
+  background: transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover {
+  border-color: var(--gold);
+  background: rgba(201, 163, 91, 0.08);
+}
+
+.btn-ink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-ui), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 2px;
+  border: none;
+  transition: background 0.2s;
+}
+.btn-ink:hover {
+  background: var(--ink-3);
+}
+.btn-ink:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display), serif;
+  font-size: 22px;
+  letter-spacing: 0.005em;
+  color: inherit;
+}
+.brand b {
+  font-weight: 600;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e4cf9e, var(--gold) 55%, var(--gold-deep));
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: inset 0 0 0 1px rgba(14, 22, 34, 0.2);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
