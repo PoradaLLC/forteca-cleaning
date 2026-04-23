@@ -39,8 +39,8 @@ export function Header() {
           <Image
             src="/images/logo.png"
             alt="Forteca Cleaning"
-            width={34}
-            height={34}
+            width={52}
+            height={52}
             style={{ borderRadius: "50%", objectFit: "cover" }}
           />
           <span>

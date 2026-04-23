@@ -22,8 +22,9 @@ export const metadata: Metadata = {
   description:
     "Premium turnover, deep, and recurring cleaning for vacation rentals, homes, and businesses across Pennsylvania's Pocono region — backed by the Forteca Estate standard.",
   icons: {
-    icon: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: "/favicon-32.png",
+    shortcut: "/favicon-32.png",
+    apple: "/favicon-32.png",
   },
 };
 
@@ -34,6 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${ui.variable}`}>
+      <head>
+        <link rel="icon" href="/favicon-32.png" type="image/png" />
+      </head>
       <body>{children}</body>
     </html>
   );
