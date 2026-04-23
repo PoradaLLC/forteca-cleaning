@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -35,7 +36,13 @@ export function Header() {
         }}
       >
         <a href="#" className="brand">
-          <span className="brand-mark">F</span>
+          <Image
+            src="/images/logo.png"
+            alt="Forteca Cleaning"
+            width={34}
+            height={34}
+            style={{ borderRadius: "50%", objectFit: "cover" }}
+          />
           <span>
             <b>Forteca</b>Cleaning
           </span>
@@ -62,11 +69,11 @@ export function Header() {
         </nav>
 
         <a
-          href="tel:+15705550123"
+          href="tel:+13475560089"
           className="btn-gold nav-cta"
           style={{ marginLeft: 16 }}
         >
-          Call (570) 555-0123
+          Call (347) 556-0089
         </a>
 
         <button

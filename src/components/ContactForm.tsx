@@ -64,7 +64,7 @@ export function ContactForm() {
           <input
             type="tel"
             {...register("phone")}
-            placeholder="(570) 555-0123"
+            placeholder="(347) 556-0089"
             disabled={submitted}
           />
         </Field>

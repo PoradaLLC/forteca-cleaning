@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: "Forteca Cleaning — Professional Property Cleaning in the Poconos",
   description:
     "Premium turnover, deep, and recurring cleaning for vacation rentals, homes, and businesses across Pennsylvania's Pocono region — backed by the Forteca Estate standard.",
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({

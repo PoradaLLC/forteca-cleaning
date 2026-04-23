@@ -1,3 +1,11 @@
+import Image from "next/image";
+
+const socials = [
+  { href: "https://www.facebook.com/FortecaEstate/", label: "Facebook" },
+  { href: "https://www.instagram.com/fortecaestate/", label: "Instagram" },
+  { href: "https://www.youtube.com/channel/UC7VRaZDHymQho2eE9v___kQ", label: "YouTube" },
+];
+
 export function Footer() {
   return (
     <footer
@@ -12,7 +20,13 @@ export function Footer() {
         <div className="foot-grid">
           <div style={{ maxWidth: 340 }}>
             <div className="brand" style={{ color: "var(--cream)", marginBottom: 20 }}>
-              <span className="brand-mark">F</span>
+              <Image
+                src="/images/logo.png"
+                alt="Forteca Cleaning"
+                width={34}
+                height={34}
+                style={{ borderRadius: "50%", objectFit: "cover" }}
+              />
               <span>
                 <b>Forteca</b>Cleaning
               </span>
@@ -21,6 +35,35 @@ export function Footer() {
               Premium property cleaning across the Pocono region. Residential, commercial, and
               vacation rental specialists — built by the Forteca Estate family.
             </p>
+            <div
+              style={{
+                marginTop: 20,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                fontSize: 10,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+              }}
+            >
+              {socials.map((s, i) => (
+                <span key={s.label} style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+                  {i > 0 && (
+                    <span style={{ color: "rgba(243,236,223,0.25)" }}>·</span>
+                  )}
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "rgba(243,236,223,0.45)", transition: "color 0.2s" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(243,236,223,0.45)")}
+                  >
+                    {s.label}
+                  </a>
+                </span>
+              ))}
+            </div>
           </div>
 
           <FooterCol title="Services">
@@ -38,12 +81,17 @@ export function Footer() {
             <a href="https://fortecaestate.com">Forteca Estate →</a>
           </FooterCol>
 
+          <FooterCol title="Legal">
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+          </FooterCol>
+
           <FooterCol title="Hours">
             <span>Mon – Fri · 7am – 6pm</span>
             <span>Saturday · 8am – 4pm</span>
             <span>Sunday · Closed</span>
-            <a href="tel:+15705550123" style={{ color: "var(--gold)", marginTop: 12 }}>
-              (570) 555-0123
+            <a href="tel:+13475560089" style={{ color: "var(--gold)", marginTop: 12 }}>
+              (347) 556-0089
             </a>
           </FooterCol>
         </div>
@@ -61,23 +109,13 @@ export function Footer() {
           className="foot-bottom"
         >
           <div>© {new Date().getFullYear()} Forteca Cleaning. A Forteca Estate company.</div>
-          <div style={{ display: "flex", gap: 16 }}>
-            <SocialIcon label="Instagram">
-              <rect x="2" y="2" width="20" height="20" rx="5" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="18" cy="6" r="1" fill="currentColor" />
-            </SocialIcon>
-            <SocialIcon label="Facebook">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </SocialIcon>
-          </div>
         </div>
       </div>
 
       <style>{`
         .foot-grid {
           display: grid;
-          grid-template-columns: 1.4fr 1fr 1fr 1fr;
+          grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
           gap: 48px;
           padding-bottom: 56px;
           border-bottom: 1px solid var(--line-on-dark);
@@ -114,34 +152,5 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
         a:hover { color: var(--gold); }
       `}</style>
     </div>
-  );
-}
-
-function SocialIcon({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <a
-      href="#"
-      aria-label={label}
-      style={{
-        width: 34,
-        height: 34,
-        borderRadius: "50%",
-        border: "1px solid var(--line-on-dark)",
-        display: "grid",
-        placeItems: "center",
-        color: "rgba(243,236,223,0.6)",
-      }}
-    >
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        {children}
-      </svg>
-    </a>
   );
 }

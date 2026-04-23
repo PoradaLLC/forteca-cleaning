@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ContactSchema } from "@/lib/validators";
+import { sendContactNotification, sendContactConfirmation } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -13,8 +14,12 @@ export async function POST(req: Request) {
       );
     }
 
-    // Log the submission for now — integrate with email service or database later
-    console.log("Contact form submission:", result.data);
+    const data = result.data;
+
+    await Promise.all([
+      sendContactNotification(data),
+      sendContactConfirmation(data),
+    ]);
 
     return NextResponse.json({ success: true });
   } catch {
