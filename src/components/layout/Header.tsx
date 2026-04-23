@@ -51,6 +51,7 @@ export function Header() {
               alt="Forteca Cleaning"
               width={52}
               height={52}
+              priority
               style={{ objectFit: "cover", display: "block" }}
             />
           </div>
