@@ -55,9 +55,7 @@ export function Footer() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "rgba(243,236,223,0.45)", transition: "color 0.2s" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(243,236,223,0.45)")}
+                    className="foot-social"
                   >
                     {s.label}
                   </a>
@@ -124,6 +122,11 @@ export function Footer() {
           .foot-grid { grid-template-columns: 1fr 1fr; }
           .foot-bottom { flex-direction: column; gap: 16px; }
         }
+        .foot-social {
+          color: rgba(243,236,223,0.45);
+          transition: color 0.2s;
+        }
+        .foot-social:hover { color: var(--gold); }
       `}</style>
     </footer>
   );
