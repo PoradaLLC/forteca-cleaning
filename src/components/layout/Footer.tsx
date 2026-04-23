@@ -84,6 +84,24 @@ export function Footer() {
             <a href="/terms">Terms of Service</a>
           </FooterCol>
 
+          <FooterCol title="Forteca Family">
+            <FamilyLink
+              href="https://fortecaestate.com"
+              label="Forteca Estate"
+              subtitle="Vacation Rental Management"
+            />
+            <FamilyLink
+              href="https://poconopropertycare.com"
+              label="Pocono Property Care"
+              subtitle="Property Maintenance & Repair"
+            />
+            <FamilyLink
+              href="https://fortecacontracting.com"
+              label="Forteca Contracting"
+              subtitle="Renovation & Construction"
+            />
+          </FooterCol>
+
           <FooterCol title="Hours">
             <span>Mon – Fri · 7am – 6pm</span>
             <span>Saturday · 8am – 4pm</span>
@@ -113,10 +131,13 @@ export function Footer() {
       <style>{`
         .foot-grid {
           display: grid;
-          grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+          grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr 1fr;
           gap: 48px;
           padding-bottom: 56px;
           border-bottom: 1px solid var(--line-on-dark);
+        }
+        @media (max-width: 1100px) {
+          .foot-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
         }
         @media (max-width: 860px) {
           .foot-grid { grid-template-columns: 1fr 1fr; }
@@ -155,5 +176,31 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
         a:hover { color: var(--gold); }
       `}</style>
     </div>
+  );
+}
+
+function FamilyLink({
+  href,
+  label,
+  subtitle,
+}: {
+  href: string;
+  label: string;
+  subtitle: string;
+}) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      <span style={{ display: "block" }}>{label}</span>
+      <span
+        style={{
+          display: "block",
+          fontSize: 11,
+          color: "rgba(243,236,223,0.45)",
+          marginTop: 2,
+        }}
+      >
+        {subtitle}
+      </span>
+    </a>
   );
 }

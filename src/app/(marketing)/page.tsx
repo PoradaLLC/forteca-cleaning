@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
+import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 
 const HERO_IMG =
   "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=2000&q=80";
@@ -515,62 +516,29 @@ function Process() {
 
 function BeforeAfter() {
   return (
-    <section className="section bg-cream">
+    <section className="section bg-cream border-t border-ink/[0.12]">
       <div className="wrap">
-        <div className="gold-rule mb-[72px]" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-end mb-[72px]">
-          <div>
-            <div className="eyebrow mb-5">The Forteca Difference</div>
-            <h2 className="font-serif font-medium tracking-[-0.015em] leading-[1.04] text-[clamp(38px,4.6vw,64px)]">
-              Every property, transformed.
-            </h2>
-          </div>
-          <p className="text-[17px] leading-relaxed text-slate">
-            The same rooms. Before our team arrived, and after.
-          </p>
+        <div className="text-center mb-14">
+          <div className="eyebrow mb-[18px]">The Forteca Difference</div>
+          <h2 className="font-serif font-medium tracking-[-0.015em] leading-[1.04] text-[clamp(38px,4.6vw,64px)] mb-4">
+            Every property,{" "}
+            <em className="italic text-gold-deep font-normal">transformed.</em>
+          </h2>
+          <p className="text-[17px] leading-relaxed text-slate mx-auto">Drag to reveal.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {beforeAfterPairs.map((pair) => (
-            <div
-              key={pair.label}
-              className="bg-paper rounded-2xl shadow-sm ring-1 ring-ink/[0.08] overflow-hidden"
-            >
-              {/* Before */}
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src={pair.before.src}
-                  alt={pair.before.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <span className="absolute top-3 left-3 bg-ink text-cream text-[10px] uppercase tracking-widest px-3 py-1 rounded-full">
-                  Before
-                </span>
-              </div>
+        <div className="max-w-[720px] mx-auto">
+          <BeforeAfterSlider
+            beforeSrc="/images/messy-bedroom-black-blanket-red-pillows.jpg"
+            afterSrc="/images/clean-bedroom-black-blanket-red-pillows.jpg"
+            beforeAlt="Bedroom before cleaning — unmade bed with black blanket and red pillows"
+            afterAlt="Bedroom after cleaning — freshly made bed with black blanket and red pillows"
+            caption="Bedroom Turnover — same room, same property"
+          />
 
-              {/* After */}
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src={pair.after.src}
-                  alt={pair.after.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <span className="absolute top-3 left-3 bg-gold text-ink text-[10px] uppercase tracking-widest px-3 py-1 rounded-full font-bold">
-                  After
-                </span>
-              </div>
-
-              {/* Caption */}
-              <div className="py-4 text-center text-[11px] uppercase tracking-widest text-slate-2">
-                {pair.label}
-              </div>
-            </div>
-          ))}
+          <p className="mt-6 text-center text-[14px] text-slate">
+            Every clean is photo-documented. Ask us about our post-clean reports.
+          </p>
         </div>
       </div>
     </section>
