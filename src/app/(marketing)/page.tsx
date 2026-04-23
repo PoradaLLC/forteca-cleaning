@@ -72,25 +72,29 @@ const steps = [
     n: "Step 01",
     h: "Walk-Through",
     p: "We visit or video-tour your property, note every detail, and build a tailored cleaning checklist around your standards.",
-    img: "/images/lockbox-keys-closeup-1.JPG",
-    imgAlt: "Lockbox with property keys — secure access for Forteca cleaning teams",
+    img: "/images/clean-living-room-stone-fireplace-wide.jpg",
+    imgAlt: "Clean vacation rental living room ready for next guests",
   },
   {
     n: "Step 02",
     h: "Schedule",
     p: "Book one-off, recurring, or same-day turnovers. Our calendar syncs with Airbnb, Vrbo, and direct-booking platforms.",
+    img: "/images/clean-kitchen-white-island-overview.jpg",
+    imgAlt: "Modern kitchen cleaned and ready for Airbnb guest arrival",
   },
   {
     n: "Step 03",
     h: "Clean & Document",
     p: "Our team executes the checklist and photographs every room on the way out — so you always know exactly what the guest will see.",
-    img: "/images/dirty-oven-interior.jpg",
-    imgAlt: "Oven being scrubbed with cleaning product — deep cleaning in progress",
+    img: "/images/clean-bathroom-green-vanity-shower-close.jpg",
+    imgAlt: "Spotless bathroom documented after Forteca cleaning",
   },
   {
     n: "Step 04",
     h: "Report",
     p: "You receive a completion report with photos, restock notes, and any issues flagged — usually before you'd even think to ask.",
+    img: "/images/made-bedroom-white-bed-spiral-rug.jpg",
+    imgAlt: "Hotel-quality bedroom finish with rolled towels — ready for the post-clean report",
   },
 ];
 
@@ -488,17 +492,15 @@ function Process() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
           {steps.map((s) => (
             <div key={s.h}>
-              {s.img && (
-                <div className="relative w-full h-[140px] rounded-xl overflow-hidden mb-5">
-                  <Image
-                    src={s.img}
-                    alt={s.imgAlt!}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-              )}
+              <div className="relative w-full h-[160px] rounded-xl overflow-hidden mb-5">
+                <Image
+                  src={s.img}
+                  alt={s.imgAlt}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
               <div className="font-serif text-[14px] text-gold-deep tracking-[0.02em] border-t border-gold pt-3.5 mb-7">
                 {s.n}
               </div>
