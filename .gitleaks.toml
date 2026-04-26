@@ -1,0 +1,63 @@
+# .gitleaks.toml — Gitleaks allowlist configuration
+#
+# HOW TO ADD NEW ENTRIES
+# ───────────────────────
+# To allowlist a specific string (e.g. a placeholder or test value):
+#
+#   [[allowlist.commits]]
+#   description = "why this commit is safe"
+#   commits = ["<full sha>"]
+#
+# To allowlist a regex pattern across all files:
+#
+#   [[allowlist.regexes]]
+#   description  = "what this pattern is and why it's safe"
+#   regex        = '''your-pattern-here'''
+#
+# To allowlist by file path (e.g. test fixtures, docs):
+#
+#   [[allowlist.paths]]
+#   description = "why these files are safe"
+#   regex       = '''test/fixtures/.*'''
+#
+# Gitleaks docs: https://github.com/gitleaks/gitleaks#configuration
+
+title = "Forteca Cleaning — Gitleaks config"
+
+[allowlist]
+  description = "Project-level allowlist for known-safe patterns"
+
+  # ── NEXT_PUBLIC_ environment variables ──────────────────────────────────────
+  # Variables prefixed with NEXT_PUBLIC_ are intentionally embedded in the
+  # client-side bundle and are safe to appear in source code. They are not
+  # secrets. Gitleaks may flag them if they look like JWTs or API keys.
+  [[allowlist.regexes]]
+    description = "NEXT_PUBLIC_ env vars are intentionally public"
+    regex       = '''NEXT_PUBLIC_[A-Z0-9_]+=["']?[^\s"']+["']?'''
+
+  # ── Supabase publishable / anon key ─────────────────────────────────────────
+  # The Supabase anon key (legacy JWT format or new sb_publishable_* format) is
+  # the *public* key — it is safe to ship in client-side code. It is distinct
+  # from the service_role key, which must never be committed.
+  [[allowlist.regexes]]
+    description = "Supabase anon key (sb_publishable_* format) is public by design"
+    regex       = '''sb_publishable_[A-Za-z0-9\-_]+'''
+
+  [[allowlist.regexes]]
+    description = "Supabase legacy anon JWT (role=anon) is public by design"
+    # Matches JWTs whose decoded payload contains "role":"anon"
+    regex       = '''eyJ[A-Za-z0-9\-_]+\.eyJ[A-Za-z0-9\-_]+\.eyJ[A-Za-z0-9\-_]+'''
+    # Scope this allowlist only to files where public keys are expected
+    path        = '''(\.env\.example|next\.config\.(ts|js)|src/.+\.(ts|tsx|js|jsx))'''
+
+  # ── .env.example files ───────────────────────────────────────────────────────
+  # Example env files intentionally contain placeholder key shapes so developers
+  # know what to fill in. They must never contain real values.
+  [[allowlist.paths]]
+    description = "Example env files contain placeholder values, not real secrets"
+    regex       = '''\.env\.example$'''
+
+  # ── Test fixtures ────────────────────────────────────────────────────────────
+  [[allowlist.paths]]
+    description = "Test fixtures may contain synthetic secrets for unit testing"
+    regex       = '''(^|/)(__tests__|__mocks__|fixtures|test)/'''

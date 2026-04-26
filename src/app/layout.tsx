@@ -18,13 +18,43 @@ const ui = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Forteca Cleaning — Professional Property Cleaning in the Poconos",
+  metadataBase: new URL('https://fortecacleaning.com'),
+  title: {
+    default: 'Forteca Cleaning | Vacation Rental Cleaning Services',
+    template: '%s | Forteca Cleaning',
+  },
   description:
-    "Premium turnover, deep, and recurring cleaning for vacation rentals, homes, and businesses across Pennsylvania's Pocono region — backed by the Forteca Estate standard.",
+    'Professional cleaning and turnover services for vacation rentals and homes in the Pocono Mountains.',
   icons: {
-    icon: "/favicon-32.png",
-    shortcut: "/favicon-32.png",
-    apple: "/favicon-32.png",
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    shortcut: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Forteca Cleaning | Vacation Rental Cleaning Services',
+    description: 'Professional cleaning and turnover services for vacation rentals in the Poconos.',
+    url: 'https://fortecacleaning.com',
+    siteName: 'Forteca Cleaning',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Forteca Cleaning — Professional Vacation Rental Cleaning',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forteca Cleaning | Vacation Rental Cleaning Services',
+    description: 'Professional cleaning and turnover services for vacation rentals in the Poconos.',
+    images: ['/og-image.png'],
   },
 };
 
@@ -35,9 +65,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${ui.variable}`}>
-      <head>
-        <link rel="icon" href="/favicon-32.png" type="image/png" />
-      </head>
       <body>{children}</body>
     </html>
   );
