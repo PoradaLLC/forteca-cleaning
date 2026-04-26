@@ -37,14 +37,25 @@ export function Header() {
         }}
       >
         <a href="/" className="brand">
-          <Image
-            src="/images/logo.png"
-            alt="Forteca Cleaning"
-            width={34}
-            height={34}
-            priority
-            style={{ borderRadius: "50%", objectFit: "cover" }}
-          />
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: "50%",
+              overflow: "hidden",
+              flexShrink: 0,
+              outline: "2px solid var(--gold)",
+            }}
+          >
+            <Image
+              src="/images/logo.png"
+              alt="Forteca Cleaning"
+              width={52}
+              height={52}
+              priority
+              style={{ objectFit: "cover", display: "block" }}
+            />
+          </div>
           <span>
             <b>Forteca</b>Cleaning
           </span>
