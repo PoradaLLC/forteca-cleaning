@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+
+const GA_ID = "G-SV8HCDKMVL";
 
 const display = Playfair_Display({
   subsets: ["latin"],
@@ -25,6 +28,16 @@ export const metadata: Metadata = {
   },
   description:
     'Professional cleaning and turnover services for vacation rentals and homes in the Pocono Mountains.',
+  keywords: [
+    'vacation rental cleaning',
+    'Airbnb cleaning service',
+    'Pocono Mountains cleaning',
+    'turnover cleaning service',
+    'short-term rental cleaning',
+    'property cleaning Pennsylvania',
+    'Forteca Cleaning',
+  ],
+  robots: { index: true, follow: true },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -65,6 +78,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${ui.variable}`}>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_ID}');
+        `}
+      </Script>
       <body>{children}</body>
     </html>
   );
