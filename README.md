@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# forteca-cleaning
 
-## Getting Started
+> Marketing site + contact pipeline for Forteca's cleaning service — vacation-rental turnovers, residential, commercial, deep cleaning, and move-in/out.
 
-First, run the development server:
+## What this is
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+A Next.js marketing site for the cleaning arm of Forteca, with a working contact pipeline (Resend) and a markdown-driven blog. It's the operational sibling of the contracting site (`forteca-contracting`) — same visual language, but production-grade lead capture and content.
+
+This repo also ships the canonical `formula/` template — the LLM-prompting blueprint we drop into new business sites. See the [Formula doc](https://github.com/PoradaLLC/docs/blob/main/src/content/docs/repos/formula.md) for what it is and how to use it.
+
+## Tech stack
+
+- **Framework:** Next.js 16.2.3 (App Router), React 19.2.4, TypeScript 5
+- **Styling:** Tailwind CSS 4 + `clsx` + `tailwind-merge`
+- **Fonts:** Playfair Display (display), Manrope (body)
+- **Forms:** react-hook-form + `@hookform/resolvers` + Zod
+- **Email:** Resend (admin notify + guest confirmation, both HTML)
+- **Icons:** Lucide React
+- **Images:** Sharp (used by the OG generator script)
+- **Supabase JS** is installed but not actively used yet (room to grow into a CMS-backed setup)
+- **Analytics:** Google Analytics — measurement ID `G-SV8HCDKMVL`
+- **Secret scanning:** `.gitleaks.toml` config in repo
+- **Deploy:** Vercel (no `vercel.json`; defaults are fine)
+
+> **Heads-up:** Next.js 16 has breaking changes from earlier versions — see `AGENTS.md` and consult `node_modules/next/dist/docs/` before relying on remembered APIs.
+
+## Quick start
+
+```sh
+npm install
+npm run dev   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Required environment variables (drop into `.env.local`):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+RESEND_API_KEY=
+RESEND_FROM_EMAIL=
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Without those, the contact form will accept input but the `/api/contact` POST will fail.
 
-## Learn More
+## Repo layout
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    (marketing)/         # home, privacy-policy, terms (route group)
+    blog/                # blog index + [slug] dynamic page
+    api/contact/route.ts # POST handler: validate → Resend admin + Resend user
+    layout.tsx           # metadata, fonts, GA tag
+    globals.css
+  components/
+    ContactForm.tsx
+    BeforeAfterSlider.tsx
+    layout/              # Header, Footer
+  lib/
+    email.ts             # Resend templates (admin + user)
+    validators.ts        # Zod schemas for contact form
+    utils.ts
+formula/                 # 10-file LLM template — see Formula doc
+scripts/
+  generate-og.mjs        # sharp-based OG image generator
+                         # (also writes the OG image used by forteca-contracting)
+public/
+  images/                # ~52 cleaning + property photos
+  og-image.png
+.gitleaks.toml
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Common commands
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Next dev server on port 3000 |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | ESLint |
+| `node scripts/generate-og.mjs` | Regenerate OG images for this repo and `forteca-contracting` |
 
-## Deploy on Vercel
+## Contact form pipeline
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+ContactForm (react-hook-form + Zod)
+       │
+       ▼
+POST /api/contact
+       │
+       ▼
+Zod validate → if invalid: 400
+       │
+       ▼
+Resend admin email (notification to ops)
+Resend user email  (confirmation to submitter)
+       │
+       ▼
+200 OK
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you change the schema in `src/lib/validators.ts`, also update the form fields in `src/components/ContactForm.tsx` and the email templates in `src/lib/email.ts` so all three stay in sync.
+
+## Deployment
+
+Vercel auto-builds on push to `main`. The Vercel project holds `RESEND_API_KEY` and `RESEND_FROM_EMAIL`.
+
+## Related
+
+- [`forteca-contracting`](https://github.com/PoradaLLC/forteca-contracting) — sister site for the contracting arm; shares visual language; its OG image is generated by this repo's `scripts/generate-og.mjs`.
+- [`forteca-poc`](https://github.com/PoradaLLC/forteca-poc) — Forteca Estate booking platform.
+- [`forteca-mobile`](https://github.com/PoradaLLC/forteca-mobile) — Forteca Estate companion mobile app.
+- [`porada`](https://github.com/PoradaLLC/porada) — sibling marketing site that also ships `formula/`.
+
+## Operational notes
+
+- `scripts/generate-og.mjs` writes into both this repo's `public/og-image.png` **and** `forteca-contracting/public/og-image.png`. Run it from this repo whenever the wordmark or tagline changes.
+- `.gitleaks.toml` is wired in for secret scanning — keep CI honest by not bypassing it.
