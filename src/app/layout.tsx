@@ -69,49 +69,51 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${ui.variable}`}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": ["Organization", "LocalBusiness"],
-            name: "Forteca Cleaning",
-            url: "https://fortecacleaning.com",
-            description: "Professional cleaning and turnover services for vacation rentals and homes in the Pocono Mountains.",
-            email: "fortecacleaning@gmail.com",
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: "Stroudsburg",
-              addressRegion: "PA",
-              postalCode: "18360",
-              addressCountry: "US",
-            },
-            areaServed: "Pocono Mountains, Pennsylvania",
-            sameAs: [
-              "https://www.facebook.com/FortecaEstate/",
-              "https://www.instagram.com/fortecaestate/",
-            ],
-            parentOrganization: {
-              "@type": "Organization",
-              name: "Forteca Estate",
-              url: "https://fortecaestate.com",
-            },
-          }),
-        }}
-      />
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_ID}');
-        `}
-      </Script>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": ["Organization", "LocalBusiness"],
+              name: "Forteca Cleaning",
+              url: "https://fortecacleaning.com",
+              description: "Professional cleaning and turnover services for vacation rentals and homes in the Pocono Mountains.",
+              email: "fortecacleaning@gmail.com",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Stroudsburg",
+                addressRegion: "PA",
+                postalCode: "18360",
+                addressCountry: "US",
+              },
+              areaServed: "Pocono Mountains, Pennsylvania",
+              sameAs: [
+                "https://www.facebook.com/FortecaEstate/",
+                "https://www.instagram.com/fortecaestate/",
+              ],
+              parentOrganization: {
+                "@type": "Organization",
+                name: "Forteca Estate",
+                url: "https://fortecaestate.com",
+              },
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }

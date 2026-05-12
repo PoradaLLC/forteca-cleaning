@@ -2,8 +2,7 @@ import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=2000&q=80";
+const HERO_VIDEO = "/videos/hero-bedroom.mp4";
 
 const ABOUT_IMG =
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80";
@@ -220,10 +219,15 @@ export default function HomePage() {
 function Hero() {
   return (
     <section className="grain relative min-h-[92vh] flex items-end pb-20 overflow-hidden">
-      <div
+      <video
         aria-hidden
-        className="absolute inset-0 bg-cover bg-center brightness-[0.55] saturate-90"
-        style={{ backgroundImage: `url('${HERO_IMG}')` }}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover brightness-[0.55] saturate-90"
+        src={HERO_VIDEO}
       />
       <div
         aria-hidden
