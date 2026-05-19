@@ -9,7 +9,7 @@ const HERO_HEADLINE = "Professional Cleaning for Your Vacation Rental";
 const HERO_BODY =
   "Trusted turnovers, spotless homes, and five-star reviews — serving the Pocono Mountains.";
 const CANONICAL_URL = "https://fortecacleaning.com/get-started";
-const GHL_FORM_ID = "tzOVDDrphRwwxVjUJKud";
+const GHL_FORM_ID = "gjTeR15AQg4rk0QKQ06Y";
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
