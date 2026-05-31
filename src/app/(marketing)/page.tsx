@@ -540,6 +540,8 @@ function BeforeAfter() {
             beforeAlt="Neglected room before Forteca cleaning — wood panel walls and bare futon"
             afterAlt="Clean modern bedroom after Forteca cleaning — dark bed frame with hotel-style white linens"
             caption="Room Restoration — before and after Forteca"
+            quality={90}
+            beforeObjectPosition="left top"
           />
 
           <p className="mt-6 text-center text-[14px] text-slate">
