@@ -535,11 +535,11 @@ function BeforeAfter() {
 
         <div className="max-w-[720px] mx-auto">
           <BeforeAfterSlider
-            beforeSrc="/images/messy-bedroom-black-blanket-red-pillows.jpg"
-            afterSrc="/images/clean-bedroom-black-blanket-red-pillows.jpg"
-            beforeAlt="Bedroom before cleaning — unmade bed with black blanket and red pillows"
-            afterAlt="Bedroom after cleaning — freshly made bed with black blanket and red pillows"
-            caption="Bedroom Turnover — same room, same property"
+            beforeSrc="/images/before-room-wood-panel-neglected.png"
+            afterSrc="/images/clean-bedroom-dark-frame-modern.png"
+            beforeAlt="Neglected room before Forteca cleaning — wood panel walls and bare futon"
+            afterAlt="Clean modern bedroom after Forteca cleaning — dark bed frame with hotel-style white linens"
+            caption="Room Restoration — before and after Forteca"
           />
 
           <p className="mt-6 text-center text-[14px] text-slate">
