@@ -9,6 +9,9 @@ interface Props {
   beforeAlt: string;
   afterAlt: string;
   caption?: string;
+  quality?: number;
+  beforeObjectPosition?: string;
+  afterObjectPosition?: string;
 }
 
 export function BeforeAfterSlider({
@@ -17,6 +20,9 @@ export function BeforeAfterSlider({
   beforeAlt,
   afterAlt,
   caption,
+  quality = 90,
+  beforeObjectPosition = "center",
+  afterObjectPosition = "center",
 }: Props) {
   const [position, setPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -74,7 +80,9 @@ export function BeforeAfterSlider({
           src={beforeSrc}
           alt={beforeAlt}
           fill
-          style={{ objectFit: "cover", pointerEvents: "none" }}
+          quality={quality}
+          sizes="(max-width: 768px) 100vw, 720px"
+          style={{ objectFit: "cover", objectPosition: beforeObjectPosition, pointerEvents: "none" }}
           draggable={false}
         />
 
@@ -90,7 +98,9 @@ export function BeforeAfterSlider({
             src={afterSrc}
             alt={afterAlt}
             fill
-            style={{ objectFit: "cover", pointerEvents: "none" }}
+            quality={quality}
+            sizes="(max-width: 768px) 100vw, 720px"
+            style={{ objectFit: "cover", objectPosition: afterObjectPosition, pointerEvents: "none" }}
             draggable={false}
           />
         </div>
