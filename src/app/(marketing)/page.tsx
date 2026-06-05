@@ -38,8 +38,8 @@ const services = [
     title: "Deep Cleaning",
     body: "Thorough, top-to-bottom cleaning that reaches every corner, baseboard, and appliance. Perfect for seasonal refreshes.",
     meta: "Seasonal · Detail · Whole-home",
-    img: "/images/clean-kitchen-wood-cabinets-overview.jpg",
-    imgAlt: "Deep-cleaned kitchen with wood cabinets and marble counters",
+    img: "/images/clean-kitchen-dark-cabinets-farmhouse-sink.jpg",
+    imgAlt: "Deep-cleaned kitchen with dark cabinets and farmhouse sink",
   },
   {
     num: "05",
@@ -54,8 +54,8 @@ const services = [
     title: "Post-Construction",
     body: "Dust, debris, and fine residue removed after renovations. We make your newly built or remodeled space genuinely move-in ready.",
     meta: "Dust · Debris · Detail",
-    img: "/images/clean-kitchen-white-cabinets-sink.jpg",
-    imgAlt: "Spotless kitchen after post-construction cleaning",
+    img: "/images/clean-living-room-modern-panels-fireplace.jpg",
+    imgAlt: "Spotless modern living room after post-construction cleaning",
   },
 ];
 
