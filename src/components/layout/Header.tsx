@@ -133,14 +133,6 @@ export function Header() {
         </div>
       )}
 
-      <style>{`
-        .nav-desktop a:hover { color: var(--gold); }
-        @media (max-width: 860px) {
-          .nav-desktop { display: none !important; }
-          .nav-cta { display: none !important; }
-          .nav-toggle { display: inline-flex !important; }
-        }
-      `}</style>
     </header>
   );
 }
